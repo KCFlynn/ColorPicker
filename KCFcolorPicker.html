@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>from scrap</title>
+	<style>
+        #container {
+			width: 420px;
+			margin: 50px auto;
+			padding: 0 30px 40px;
+			border: 5px solid rgb(233,69,0);
+            -webkit-border-radius:5px;
+            background-color:rgba(133,139,63, 0.41);	
+		}
+        #colorboxes{
+            width:200px;    
+            height:150px;
+            border:2px solid black;
+        }
+        #redBox{
+            width: 40px;
+	
+        }
+        #greenBox{
+            width: 40px;	
+        }
+        #blueBox{
+            width: 40px;   
+        }
+        .fSSize{
+            width: 45px;
+            display:block;
+            float: left;
+            
+        }
+        #instruct{
+            font-size: 20px;
+            margin-left: 10px;
+        }
+        h2{
+           margin-left: 10px; 
+        }
+        fieldset{
+            background-color:rgba(100,240,63,0.30);	
+            border:2px solid rgba(233,69,0, .6);
+            margin:0px 0px 18px 2.5%;
+            width:46%;
+            -webkit-border-radius:5px; 
+        }
+        #redFS{
+           background-color:rgba(255,0,0,0.20); 
+        }
+        #greenFS{
+           background-color:rgba(0,255,0,0.20); 
+        }
+        #blueFS{
+           background-color:rgba(0,0,255,0.20); 
+        }
+        #box {
+			width: 400px;
+			height: 38px;
+			margin-left: 10px;
+            -webkit-border-radius:5px; 
+            font-size: 22px;
+		}
+        #btn {
+			margin-left: 10px;
+            -webkit-border-radius:5px; 
+            background-color:rgba(255,128,0, .4); 
+            font-style: italic; 
+		}
+        #clearBtn{
+            margin-left: 10px;
+            margin-top: 10px;
+            -webkit-border-radius:5px;
+            background-color:rgba(255,128,0, .4); 
+        }
+        #btn:hover{
+           background-color: rgba(100,240,63,0.37);
+           color: red;
+        }
+        #clearBtn:hover{
+           background-color: rgba(100,240,63,0.37);
+           color: red;
+        }
+        label{
+            font-family: Verdana;
+        }
+	
+	</style>
+</head>
+<body>
+    
+        <div id="container">
+            
+            <form autocomplete="false">
+                
+          <h2>CSS Color Selector</h2>
+                
+<div id="instruct">Select a number from 0 to 255 for each box:</div>
+    <br/>
+    <br/>
+                
+	              <div id="colorBoxes">
+               <fieldset class="fSSize" id="redFS">
+          <label for="redBox">Red:</label><br>
+	<input name="red" type="text" id="redBox" value="" min="0" max="255" placeholder="0-255">
+                </fieldset>
+    
+                <fieldset class="fSSize" id="greenFS">
+          <label for="greenBox">Green:</label><br>
+	<input name="green" type="text" id="greenBox" value="" min="0" max="255" placeholder="0-255">
+                </fieldset>
+                   
+                <fieldset class="fSSize" id="blueFS">
+          <label for="blueBox">Blue:</label><br>
+	<input name="blue" type="text" id="blueBox" value="" min="0" max="255" placeholder="0-255">
+                </fieldset>
+
+                <div>
+            <input onclick="saveInfo()" type="button" id="btn" value="Show me the color!">
+            <input type="button" onclick="clearFields()" id="clearBtn" value="Clear boxes">
+                </div>
+    <input type= "text" id="box" placeholder="    The Color You Select Appears Here">
+            </div>
+                
+      </form>
+            
+    </div>
+       
+	<script>
+  
+       function saveInfo(){
+        var redInput = document.getElementById("redBox");
+	    var greenInput = document.getElementById("greenBox");
+        var blueInput = document.getElementById("blueBox");
+           
+        localStorage.setItem("redBox" redInput.value);
+        localStorage.setItem("greenBox" greenInput.value);
+        localStorage.setItem("blueBox" blueInput);
+           
+        display();
+           
+     }
+        
+	 function display(){
+	      if(red === "" || green === "" || blue === ""){
+            alert("please fill in all fields")
+        }else if(red.length > 3 || green.length > 3 || blue.length > 3){
+                alert("Please give valid RGB values")
+            }
+                else if(red > 255 || green > 255 || blue > 255){
+                    alert("Please enter a value between 0 and 255")
+                }
+        else{
+        box.style.backgroundColor = "rgb(" + (redInput) + "," + (greenInput) + ", " + (blueInput) + ")";
+       }
+     }
+        
+            function clearFields(){
+        document.getElementById("redBox").value="";
+        document.getElementById("greenBox").value="";
+        document.getElementById("blueBox").value="";
+        
+     }
+	
+	</script>
+</body>
+</html>
