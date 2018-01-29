@@ -62,6 +62,7 @@
 			margin-left: 10px;
             -webkit-border-radius:5px; 
             font-size: 22px;
+            
 		}
         #btn {
 			margin-left: 10px;
@@ -104,22 +105,22 @@
 	              <div id="colorBoxes">
                <fieldset class="fSSize" id="redFS">
           <label for="redBox">Red:</label><br>
-	<input name="red" type="text" id="redBox" value="" min="0" max="255" placeholder="0-255">
+	<input name="red" type="text" id="redBox" value="" placeholder="0-255">
                 </fieldset>
     
                 <fieldset class="fSSize" id="greenFS">
           <label for="greenBox">Green:</label><br>
-	<input name="green" type="text" id="greenBox" value="" min="0" max="255" placeholder="0-255">
+	<input name="green" type="text" id="greenBox" value="" placeholder="0-255">
                 </fieldset>
                    
                 <fieldset class="fSSize" id="blueFS">
           <label for="blueBox">Blue:</label><br>
-	<input name="blue" type="text" id="blueBox" value="" min="0" max="255" placeholder="0-255">
+	<input name="blue" type="text" id="blueBox" value="" placeholder="0-255">
                 </fieldset>
 
                 <div>
-            <input onclick="saveInfo()" type="button" id="btn" value="Show me the color!">
-            <input type="button" onclick="clearFields()" id="clearBtn" value="Clear boxes">
+    <input onclick="colorSelect()" type="button" id="btn" value="Show me the color!">
+    <input type="button" onclick="clearFields()" id="clearBtn" value="Clear boxes">
                 </div>
     <input type= "text" id="box" placeholder="    The Color You Select Appears Here">
             </div>
@@ -130,32 +131,46 @@
        
 	<script>
   
-       function saveInfo(){
-        var redInput = document.getElementById("redBox");
-	    var greenInput = document.getElementById("greenBox");
-        var blueInput = document.getElementById("blueBox");
+     function saveInfo(){
+        let redInput = document.getElementById("redBox");
+        redBox = parseInt(redInput);
+	    let greenInput = document.getElementById("greenBox");
+        greenBox = parseInt(greenInput);
+        let blueInput = document.getElementById("blueBox");
+        blueBox = parseInt(blueInput);
+        let clearBtn = document.getElementById("clearBtn");
+        clearBtn.addEventListener("click", clearFields, false);
+        let btn = document.getElementById("btn");
+        btn.addEventListener("click", colorSelect, false);
            
         localStorage.setItem("redBox" redInput.value);
         localStorage.setItem("greenBox" greenInput.value);
         localStorage.setItem("blueBox" blueInput);
            
-        display();
+        
            
      }
         
-	 function display(){
-	      if(red === "" || green === "" || blue === ""){
-            alert("please fill in all fields")
-        }else if(red.length > 3 || green.length > 3 || blue.length > 3){
-                alert("Please give valid RGB values")
+	 function validateInput(){
+	      if(redInput === "" || greenInput === "" || blueInput === ""){
+                 alert("please fill in all fields");
+                 clearFields();
+               }else if(redInput.length > 3 || greenInput.length > 3 || blueInput.length > 3){
+                  alert("Please give valid RGB values");
+                  clearFields();
             }
-                else if(red > 255 || green > 255 || blue > 255){
-                    alert("Please enter a value between 0 and 255")
+                else if(redInput > 255 || greenInput > 255 || blueInput > 255){
+                    alert("Please enter a value between 0 and 255");
+                     clearFields();
                 }
-        else{
-        box.style.backgroundColor = "rgb(" + (redInput) + "," + (greenInput) + ", " + (blueInput) + ")";
-       }
+
      }
+        function colorSelect(){
+            validateInput();
+            box.style.backgroundColor = "rgb(" + (redInput) + "," + (greenInput) + ", " + (blueInput) + ")";
+            window.addEventListener("load" colorSelect);
+        }
+        
         
             function clearFields(){
         document.getElementById("redBox").value="";
