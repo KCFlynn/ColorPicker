@@ -22,7 +22,7 @@
 	
         }
         #greenBox{
-            width: 40px;	
+            width: 50px;	
         }
         #blueBox{
             width: 40px;   
@@ -62,6 +62,7 @@
 			margin-left: 10px;
             -webkit-border-radius:5px; 
             font-size: 22px;
+            
             
 		}
         #btn {
@@ -105,21 +106,21 @@
 	              <div id="colorBoxes">
                <fieldset class="fSSize" id="redFS">
           <label for="redBox">Red:</label><br>
-	<input name="red" type="text" id="redBox" value="" placeholder="0-255">
+	<input name="red" type="text" id="redBox" value="" placeholder=" 0-255">
                 </fieldset>
     
                 <fieldset class="fSSize" id="greenFS">
           <label for="greenBox">Green:</label><br>
-	<input name="green" type="text" id="greenBox" value="" placeholder="0-255">
+	<input name="green" type="text" id="greenBox" value="" placeholder="  0-255">
                 </fieldset>
                    
                 <fieldset class="fSSize" id="blueFS">
-          <label for="blueBox">Blue:</label><br>
-	<input name="blue" type="text" id="blueBox" value="" placeholder="0-255">
+          <label for="blueBox">Blue:</label><br> 
+	<input name="blue" type="text" id="blueBox" value="" placeholder=" 0-255">
                 </fieldset>
 
                 <div>
-    <input onclick="colorSelect()" type="button" id="btn" value="Show me the color!">
+    <input onclick="saveInfo()" type="button" id="btn" value="Show me the color!">
     <input type="button" onclick="clearFields()" id="clearBtn" value="Clear boxes">
                 </div>
     <input type= "text" id="box" placeholder="    The Color You Select Appears Here">
@@ -129,47 +130,69 @@
             
     </div>
        
-	<script>
+
+</body>
+    	<script>
+
   
      function saveInfo(){
-        let redInput = document.getElementById("redBox");
-        redBox = parseInt(redInput);
-	    let greenInput = document.getElementById("greenBox");
-        greenBox = parseInt(greenInput);
-        let blueInput = document.getElementById("blueBox");
-        blueBox = parseInt(blueInput);
-        let clearBtn = document.getElementById("clearBtn");
-        clearBtn.addEventListener("click", clearFields, false);
-        let btn = document.getElementById("btn");
-        btn.addEventListener("click", colorSelect, false);
-           
-        localStorage.setItem("redBox" redInput.value);
-        localStorage.setItem("greenBox" greenInput.value);
-        localStorage.setItem("blueBox" blueInput);
-           
+         if(window.localStorage){
+            let red = document.getElementById("redBox");
+        
+	        let green = document.getElementById("greenBox");
+        
+            let blue = document.getElementById("blueBox");  
+            
+            red.value =localStorage.getItem("redBox");
+            green.value =localStorage.getItem("greenBox");
+            blue.value =localStorage.getItem("blueBox");
+             
+            red.addEventListener("input", function() {
+                 localStorage.setItem("redBox", red.value);
+             }, false);
+             
+            green.addEventListener("input", function() {
+                 localStorage.setItem("greenBox", green.value);
+             }, false);
+             
+            blue.addEventListener("input", function() {
+                 localStorage.setItem("blueBox", blue.value);
+             }, false);
+                         
+            validateInput()
+            box.style.backgroundColor = "rgb(" + (red.value) + "," + (green.value) + ", " + (blue.value) + ")";
+         }
         
            
      }
         
-	 function validateInput(){
-	      if(redInput === "" || greenInput === "" || blueInput === ""){
+	function validateInput()
+            {
+            let redBox = document.getElementById("redBox");
+        
+	        let greenBox = document.getElementById("greenBox");
+        
+            let blueBox = document.getElementById("blueBox"); 
+                
+                
+	        if(redBox === "" || greenBox === "" || blueBox === "")
+                {
                  alert("please fill in all fields");
-                 clearFields();
-               }else if(redInput.length > 3 || greenInput.length > 3 || blueInput.length > 3){
-                  alert("Please give valid RGB values");
-                  clearFields();
-            }
-                else if(redInput > 255 || greenInput > 255 || blueInput > 255){
-                    alert("Please enter a value between 0 and 255");
-                     clearFields();
+                 //clearFields();
                 }
+                else if(redBox.length > 3 || greenBox.length > 3 || blueBox.length > 3)
+                        {
+                        alert("Please give valid RGB values");
+                        //clearFields();
+                        }
+                else if(redBox > 255 || greenBox > 255 || blueBox > 255)
+                        {
+                        alert("Please enter a value between 0 and 255");
+                        //clearFields();
+                        }
 
      }
-        function colorSelect(){
-            validateInput();
-            box.style.backgroundColor = "rgb(" + (redInput) + "," + (greenInput) + ", " + (blueInput) + ")";
-            window.addEventListener("load" colorSelect);
-        }
+
         
         
             function clearFields(){
@@ -180,5 +203,4 @@
      }
 	
 	</script>
-</body>
 </html>
