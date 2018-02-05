@@ -62,7 +62,7 @@
 			margin-left: 10px;
             -webkit-border-radius:5px; 
             font-size: 22px;
-            
+            background-color: "";
             
 		}
         #btn {
@@ -133,7 +133,6 @@
 
 </body>
     	<script>
-
   
      function saveInfo(){
          if(window.localStorage){
@@ -158,47 +157,56 @@
             blue.addEventListener("input", function() {
                  localStorage.setItem("blueBox", blue.value);
              }, false);
-                         
-            validateInput()
-            box.style.backgroundColor = "rgb(" + (red.value) + "," + (green.value) + ", " + (blue.value) + ")";
-         }
+             
+             validateInput()  
+          }
         
            
-     }
-        
-	function validateInput()
+        }
+        	function validateInput()
             {
-            let redBox = document.getElementById("redBox");
+            let red = document.getElementById("redBox");
         
-	        let greenBox = document.getElementById("greenBox");
+	        let green = document.getElementById("greenBox");
         
-            let blueBox = document.getElementById("blueBox"); 
+            let blue = document.getElementById("blueBox");
                 
-                
-	        if(redBox === "" || greenBox === "" || blueBox === "")
+               
+	        if(red.value < 0 || green.value < 0 || blue.value < 0)
                 {
-                 alert("please fill in all fields");
-                 //clearFields();
+                 alert("Please give valid RGB values");
+                 
                 }
-                else if(redBox.length > 3 || greenBox.length > 3 || blueBox.length > 3)
+                else if(red.value === "" || green.value === "" || blue.value === "")
+                        {
+                        alert("please fill in all fields");
+                        
+                        }
+                else if(red.value.length > 3 || green.value.length > 3 || blue.value.length > 3)
                         {
                         alert("Please give valid RGB values");
-                        //clearFields();
+                        
                         }
-                else if(redBox > 255 || greenBox > 255 || blueBox > 255)
+                else if(red.value > 255 || green.value > 255 || blue.value > 255)
                         {
                         alert("Please enter a value between 0 and 255");
-                        //clearFields();
+                        
                         }
-
-     }
-
-        
+                   else
+                        {
+                    
+                        box.style.backgroundColor = "rgb(" + (red.value) + "," + (green.value) + ", " + (blue.value) + ")";
+                        }
+          
+            }
+	
         
             function clearFields(){
         document.getElementById("redBox").value="";
         document.getElementById("greenBox").value="";
         document.getElementById("blueBox").value="";
+        
+        localStorage.clear(redBox, greenBox, blueBox);
         
      }
 	
